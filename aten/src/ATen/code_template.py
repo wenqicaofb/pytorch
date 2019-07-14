@@ -29,9 +29,10 @@ class CodeTemplate(object):
         with open(filename, 'r') as f:
             return CodeTemplate(f.read(), filename)
 
-    def __init__(self, pattern, filename=""):
+    def __init__(self, pattern, filename="", escape_quotes=False):
         self.pattern = pattern
         self.filename = filename
+        self.escape_quotes = escape_quotes
 
     def substitute(self, env=None, **kwargs):
         if env is None:
@@ -67,8 +68,14 @@ class CodeTemplate(object):
                     return middle
                 return comma_before + middle + comma_after
             else:
-                return str(v)
-        return self.subtitution.sub(replace, self.pattern)
+                res = str(v)
+                if self.escape_quotes:
+                    res = res.replace('"', r'\"')
+                return res
+        final_str = self.subtitution.sub(replace, self.pattern)
+        # if "conv2d" in final_str and "globalATenDispatch" in final_str:
+        #     print(final_str)
+        return final_str
 
 
 if __name__ == "__main__":

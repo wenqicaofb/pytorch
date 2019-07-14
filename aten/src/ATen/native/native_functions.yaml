@@ -470,7 +470,8 @@
 - func: conv1d(Tensor input, Tensor weight, Tensor? bias=None, int[1] stride=1, int[1] padding=0, int[1] dilation=1, int groups=1) -> Tensor
 
 - func: conv2d(Tensor input, Tensor weight, Tensor? bias=None, int[2] stride=1, int[2] padding=0, int[2] dilation=1, int groups=1) -> Tensor
-- func: conv2d(Tensor input, Tensor weight, Tensor? bias=None, int[2] stride=1, bool padding=True, int[2] dilation=1, int groups=1) -> Tensor
+
+- func: conv2d(Tensor input, Tensor weight, Tensor? bias=None, int[2] stride=1, str padding="same", int[2] dilation=1, int groups=1) -> Tensor
 
 - func: conv3d(Tensor input, Tensor weight, Tensor? bias=None, int[3] stride=1, int[3] padding=0, int[3] dilation=1, int groups=1) -> Tensor
 

@@ -407,10 +407,6 @@ at::Tensor convolution(
     i /= 2;
   }
   std::reverse(uneven_padding.begin(), uneven_padding.end());
-  for (auto i: uneven_padding) {
-    std::cout<<i<<' ';
-  }
-  std::cout<<std::endl;
   if (is_uneven) {
     auto res = at::constant_pad_nd(input, IntArrayRef{uneven_padding});
     return at::_convolution(res, weight, bias, stride, IntArrayRef{paddings}, dilation,

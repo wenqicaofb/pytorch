@@ -544,7 +544,6 @@ def generate_outputs():
 
     cuda_file_manager.write('RegisterCUDA.h', REGISTER_CUDA_H, top_env)
     cuda_file_manager.write('RegisterCUDA.cpp', REGISTER_CUDA_CPP, top_env)
-
     file_manager.write('Functions.h', FUNCTIONS_H, top_env)
 
     file_manager.write('NativeFunctions.h', NATIVE_FUNCTIONS_H, top_env)
