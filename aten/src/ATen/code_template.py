@@ -69,10 +69,7 @@ class CodeTemplate(object):
             else:
                 res = str(v)
                 return res
-        final_str = self.subtitution.sub(replace, self.pattern)
-        # if "conv2d" in final_str and "globalATenDispatch" in final_str:
-        #     print(final_str)
-        return final_str
+        return self.subtitution.sub(replace, self.pattern)
 
 
 if __name__ == "__main__":
