@@ -39,6 +39,7 @@ TYPE_MAP = {
     'std::array<bool,3>': 'bool[3]',
     'std::array<bool,4>': 'bool[4]',
     'std::string': 'str',
+    'std::string?': 'str?',
     'Scalar': 'Scalar',
     'MemoryFormat': 'MemoryFormat',
     'MemoryFormat?': 'MemoryFormat?',
@@ -81,6 +82,7 @@ def optional_type_of(arg, typ):
 def jit_type_of(arg):
     # override for when viewing ops have already set
     # annotated jit types
+    print(arg)
     if 'jit_type' in arg:
         return arg['jit_type']
     typ = TYPE_MAP[arg['simple_type']]
@@ -116,6 +118,7 @@ FROM_IVALUE = {
     'int64_t': '{}.toInt()',
     'int64_t?': '{}.toOptional<int64_t>()',
     'std::string': '{}.toStringRef()',
+    'std::string?': '{}.toOptional<std::string>()',
     'Generator': 'nullptr',
     'std::array<bool,2>': 'as_bool_array<2>({}.toBoolList())',
     'std::array<bool,3>': 'as_bool_array<3>({}.toBoolList())',

@@ -114,10 +114,10 @@ ${return_type} ${Type}::${api_name}(${type_method_formals}) {
 
 DEFAULT_FUNCTION_REGISTRATION = CodeTemplate("""\
 .registerOp<${return_type} (${formals_types})>(Backend::Undefined, "${schema_string}", &TypeDefault::${api_name})
-""", escape_quotes=True)
+""")
 BACKEND_FUNCTION_REGISTRATION = CodeTemplate("""\
 .registerOp<${return_type} (${formals_types})>(Backend::${Backend}, "${schema_string}", &${Type}::${api_name})
-""", escape_quotes=True)
+""")
 
 # Generate a file that lists all functions and their schema string. Used for XLA
 REGISTRATION_DECLARATION = CodeTemplate("""\
@@ -141,7 +141,7 @@ inline ${return_type} Tensor::${api_name}(${method_formals})${const_mark} {
     static auto table = globalATenDispatch().getOpTable("${schema_string}");
     return table->getOp<${return_type} (${formals_types})>(tensorTypeIdToBackend(type_id()), is_variable())(${method_actuals});
 }
-""", escape_quotes=True)
+""")
 # add a method declaration in Functions.h
 FUNCTION_DECLARATION = CodeTemplate("""\
 static inline ${return_type} ${api_name}(${formals_with_defaults});
@@ -156,7 +156,7 @@ static inline ${return_type} ${api_name}(${formals}) {
     static auto table = globalATenDispatch().getOpTable("${schema_string}");
     return table->getOp<${return_type} (${formals_types})>(${inferred_backend}, ${inferred_is_variable})(${native_actuals});
 }
-""", escape_quotes=True)
+""")
 # add a native declaration for a native function
 NATIVE_DECLARATION = CodeTemplate("""\
 CAFFE2_API ${return_type} ${native_type_method_dispatch}(${formals_with_defaults});
@@ -169,7 +169,7 @@ static inline ${return_type} ${api_name}(${formals}) {
     static auto table = globalATenDispatch().getOpTable("${schema_string}");
     return table->getOp<${return_type} (${formals_types})>(${inferred_backend}, ${inferred_is_variable})(${native_actuals});
 }
-""", escape_quotes=True)
+""")
 
 ZERO_DIM_CHECK = CodeTemplate("""\
 if (${check_name}.dim() == 0) {
@@ -820,6 +820,8 @@ def create_generic(top_env, declarations):
             return s
         if isinstance(v, bool):
             v = str(v).lower()
+        elif isinstance(v, str):
+            v = str(v).replace(r'\"', r'"')
         return '{}={}'.format(s, v)
 
     def get_broadcast_argument(option):

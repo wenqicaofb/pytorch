@@ -77,6 +77,8 @@ def type_argument_translations(arg):
     # Enables str by translating to legacy std::string.
     elif t == 'str':
         t = 'std::string'
+    elif t == 'str?':
+        t = 'std::string'
     elif t == 'double':
         raise RuntimeError("Please use float and not double. "
                            "See [temp translations] for details.")
@@ -377,6 +379,7 @@ def run(paths):
         for func in parse_native_yaml(path):
             declaration = {'mode': 'native'}
             try:
+                print(func['func'])
                 declaration['schema_string'] = "aten::" + func['func']
                 if '->' in func['func']:
                     func_decl, return_decl = [x.strip() for x in func['func'].split('->')]

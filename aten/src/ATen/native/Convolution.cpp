@@ -320,7 +320,7 @@ at::Tensor conv2d(
 }
 at::Tensor conv2d(
     const Tensor& input, const Tensor& weight, const Tensor& bias,
-    IntArrayRef stride, bool padding, IntArrayRef dilation, int64_t groups) {
+    IntArrayRef stride, std::string padding, IntArrayRef dilation, int64_t groups) {
   return at::convolution(input, weight, bias, stride, padding, dilation,
                          false, {{0, 0}}, groups);
 }
@@ -389,7 +389,7 @@ int64_t _compute_padding_same(IntArrayRef input_size, IntArrayRef filter_size, I
 
 at::Tensor convolution(
     const Tensor& input, const Tensor& weight, const Tensor& bias,
-    IntArrayRef stride, bool padding, IntArrayRef dilation,
+    IntArrayRef stride, std::string padding, IntArrayRef dilation,
     bool transposed, IntArrayRef output_padding, int64_t groups) {
   auto& ctx = at::globalContext();
   std::vector<int64_t> paddings(input.ndimension() - 2);
