@@ -14,8 +14,9 @@ namespace at { namespace native {
 
 void add_kernel_cuda(TensorIterator& iter, Scalar alpha_scalar) {
   if (iter.dtype() == ScalarType::Bool) {
-    gpu_kernel_with_scalars(iter, []GPU_LAMBDA(bool a, bool b) -> bool {
-      return a + b;
+    auto alpha = alpha_scalar.to<bool>();
+    gpu_kernel_with_scalars(iter, [alpha]GPU_LAMBDA(bool a, bool b) -> bool {
+      return a + b * alpha;
     });
   } else {
     AT_DISPATCH_ALL_TYPES_AND(kHalf, iter.dtype(), "add_cuda", [&]() {
