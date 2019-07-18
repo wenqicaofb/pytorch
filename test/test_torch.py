@@ -1699,8 +1699,8 @@ class _TestTorchMixin(object):
             self.assertEqual(m1 + m2, expected)
 
             # fused multiply add
-            res = torch.add(torch.zeros(2,3, dtype=torch.bool, device=device), torch.ones(2,3, dtype=torch.bool, device=device), alpha=0)
-            expected = torch.zeros(2,3, device=device).bool()
+            res = torch.add(torch.zeros(2, 3, dtype=torch.bool, device=device), torch.ones(2, 3, dtype=torch.bool, device=device), alpha=0)
+            expected = torch.zeros(2, 3, device=device).bool()
             self.assertEqual(res, expected)
 
     def test_csub(self):
