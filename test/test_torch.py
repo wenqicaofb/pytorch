@@ -1695,8 +1695,7 @@ class _TestTorchMixin(object):
         m1 = torch.tensor([True, False, False, True, False, False], dtype=torch.bool)
         m2 = torch.tensor([True, True, False, False, False, True], dtype=torch.bool)
         self.assertEqual(m1 + m2, torch.tensor([True, True, False, True, False, True], dtype=torch.bool))
-
-        # [res] torch.add([res,] tensor1, value, tensor2)
+        self.assertEqual(m1.to('cuda') + m2.to('cuda'), torch.tensor([True, True, False, True, False, True], device='cuda', dtype=torch.bool))
 
     def test_csub(self):
         # with a tensor
@@ -4947,7 +4946,7 @@ class _TestTorchMixin(object):
                   (3, 0), (0, 3, 3), (3, 3, 0, 0),  # no numel matrices
                   (3, 1), (5, 3, 1), (7, 5, 3, 1),  # very fat matrices
                   (1, 3), (5, 1, 3), (7, 5, 1, 3),  # very thin matrices
-                  (1, 3, 3, 3), (3, 1, 3, 3, 3)]    # unsqueezed batch dimensions 
+                  (1, 3, 3, 3), (3, 1, 3, 3, 3)]    # unsqueezed batch dimensions
         for s, d in product(shapes, diagonals):
             run_test(s, cast, d)
 
