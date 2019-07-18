@@ -1694,8 +1694,9 @@ class _TestTorchMixin(object):
         # bool
         m1 = torch.tensor([True, False, False, True, False, False], dtype=torch.bool)
         m2 = torch.tensor([True, True, False, False, False, True], dtype=torch.bool)
-        self.assertEqual(m1 + m2, torch.tensor([True, True, False, True, False, True], dtype=torch.bool))
-        self.assertEqual(m1.to('cuda') + m2.to('cuda'), torch.tensor([True, True, False, True, False, True], device='cuda', dtype=torch.bool))
+        expected = torch.tensor([True, True, False, True, False, True], dtype=torch.bool)
+        self.assertEqual(m1 + m2, expected)
+        self.assertEqual(m1.to('cuda') + m2.to('cuda'), expected.to('cuda'))
 
     def test_csub(self):
         # with a tensor
