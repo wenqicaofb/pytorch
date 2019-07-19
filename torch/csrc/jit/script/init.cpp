@@ -549,7 +549,7 @@ void initJitScriptBindings(PyObject* module) {
             PythonPrint(
                 ss,
                 source_ranges,
-                self,
+                self.type(),
                 tensors,
                 classes,
                 false);
@@ -834,7 +834,7 @@ void initJitScriptBindings(PyObject* module) {
       PythonPrint(
           ss,
           source_ranges,
-          *self,
+          self->type(),
           constants,
           classes,
           true);

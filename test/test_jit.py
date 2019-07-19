@@ -3145,6 +3145,7 @@ def foo(x):
 
         with torch.jit._disable_emit_hooks():
             class Foo(torch.jit.ScriptModule):
+            r
                 def __init__(self):
                     super(Foo, self).__init__()
 
